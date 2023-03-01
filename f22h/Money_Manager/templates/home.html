@@ -1,0 +1,45 @@
+{% extends "base_login.html" %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+<body>
+
+{% if currentUser.get_first_name() is not none %}
+    <p>
+       <h1> Hello {{ currentUser.get_first_name() }} {{currentUser.get_last_name()}} </h1>
+        {% if currentUser.get_current_balance() is none %}
+        <h2>Current Balance: $0 </h2>
+        {% else %}
+        <h2>Current Balance: ${{currentUser.get_current_balance()}}</h2>
+        {% endif %}
+    </p>
+{% endif %}
+
+<P>
+
+  <form method = "POST">
+  <form action="">
+    <label for="transaction_amount">Transaction Amount</label>
+    <input type="number" id="transaction_amount" name="transaction_amount">
+    <br/>
+
+       <select name="transaction_type">
+           <option value="deposit">Deposit</option>
+           <option value="charge">Charge</option>
+      </select>
+
+    <input type="submit" value="Submit">
+    </form>
+  </form>
+
+</P>
+
+
+</body>
+
+
+
+{% endblock %}

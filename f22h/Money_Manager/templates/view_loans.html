@@ -1,0 +1,57 @@
+{% extends "base_login.html" %}
+
+{% block title %}Loans{% endblock %}
+
+{% block body %}
+
+<h1>Enter Loan Data</h1>
+
+<body>
+  <form method = "POST">
+    <label for="loan_name">Loan Name</label>
+    <input type="text" id="loan_name" name="loan_name">
+    <br/>
+
+  <form action="">
+    <label for="loan_amount">Loan Amount</label>
+    <input type="number" step="any" id="loan_amount" name="loan_amount">
+    <br/>
+
+    <label for="interest_rate">APR</label>
+    <input type="number" step="any" id="interest_rate" name="interest_rate">
+    <br/>
+
+      <label for="loan_term">Loan Term (Months)</label>
+    <input type="number" step="any" id="loan_term" name="loan_term">
+    <br/>
+
+    <input type="submit" value="Submit">
+    </form>
+  </form>
+
+{% if currentLoan.get_monthly_payment() is not none %}
+
+<h3> Your monthly payment is ${{currentLoan.get_monthly_payment()}} </h3>
+{% endif %}
+
+<h4>Current Loans: </h4>
+  <table class="table table-striped" style="width:100%">
+   <TR>
+    <TH scope="col">Name</TH>
+    <TH scope="col">Amount</TH>
+    <TH scope="col">APR</TH>
+     <TH scope ="col">Length</TH>
+    <TH scope="col">Monthly Payment</TH>
+  </TR>
+  {% for loan in currentUser.get_loan_list() %}
+  <TR>
+    <TD class="c1">{{loan.get_loan_name()}}</TD>
+    <TD class="c2"><SPAN>${{loan.get_balance()}}</SPAN></TD>
+    <TD class="c3"><SPAN>{{loan. get_apr()}}%</SPAN></TD>
+      <TD class="c4"><SPAN>{{loan.get_loan_term()}} Months</SPAN></TD>
+    <TD class="c5"><SPAN>${{loan.get_monthly_payment()}}</SPAN></TD>
+  </TR>
+  {% endfor %}
+</table>
+</body>
+{% endblock %}

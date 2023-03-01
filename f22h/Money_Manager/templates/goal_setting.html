@@ -1,0 +1,55 @@
+{% extends "base_login.html" %}
+
+{% block title %} Goal Setting{% endblock %}
+
+{% block body %}
+
+<h1> Welcome to your Goal Setting page!</h1>
+
+{% if currentGoal.get_balance() is not none %}
+     <p>
+       The 50/30/20 rule is an easy budgeting method that can help you to manage your money effectively, simply and sustainably.
+         The basic rule of thumb is to divide your monthly after-tax income into three spending categories: 50% for needs, 30% for wants and 20% for
+         savings or paying off debt.
+         <br>
+
+        <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Needs</th>
+      <th scope="col">Wants</th>
+      <th scope="col">Savings</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if currentUser.get_current_balance() > 0 %}
+    <tr>
+      <th scope="row">1</th>
+      <td>${{ currentGoal.needs_budget() }}</td>
+      <td>${{ currentGoal.wants_budget() }}</td>
+      <td>${{ currentGoal.savings_budget() }}</td>
+    </tr>
+    {% else %}
+  <tr>
+      <th scope="row">1</th>
+      <td>$0</td>
+      <td>$0</td>
+      <td>$0</td>
+    </tr>
+
+  {% endif %}
+
+
+  </tbody>
+</table>
+
+
+
+    </p>
+
+{% endif %}
+
+
+
+{% endblock %}

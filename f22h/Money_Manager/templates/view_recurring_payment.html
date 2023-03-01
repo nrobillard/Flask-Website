@@ -1,0 +1,54 @@
+{% extends "base_login.html" %}
+
+{% block title %} Create Account/Sign up{% endblock %}
+
+{% block body %}
+
+<h1>Enter Recurring Payment Data</h1>
+
+<body>
+  <form method = "POST">
+    <label for="recurring_payment_name">Name: </label>
+    <input type="text" id="recurring_payment_name" name="recurring_payment_name">
+    <br/>
+
+  <form action="">
+    <label for="recurring_payment_amount">Amount: </label>
+    <input type="number" id="recurring_payment_amount" name="recurring_payment_amount">
+    <br/>
+
+    <label for="payment_type">Type: </label>
+      <select id="payment_type" name="payment_type">
+        <option value="Charge">Charge</option>
+        <option value="Deposit">Deposit</option>
+      </select>
+    <br/>
+
+
+    <br/>
+    <input type="submit" value="Submit">
+    </form>
+  </form>
+
+  <h4>Current Recurring Payments</h4>
+  <table class="table table-striped" style="width:100%">
+    <TR>
+      <TH scope="col">Name</TH>
+      <TH scope="col">Amount</TH>
+      <TH scope="col">Type</TH>
+      {% for recurring_payment in currentUser.get_recurring_payment_list() %}
+
+    </TR>
+    <TR>
+      <TD class="c3">{{recurring_payment.get_title()}}</TD>
+      <TD class="c4"><SPAN>${{recurring_payment.get_amount()}}</SPAN></TD>
+      <TD class="c5"><SPAN>{{recurring_payment.get_type()}}</SPAN></TD>
+
+      {% endfor %}
+    </TR>
+
+  </table>
+
+
+</body>
+{% endblock %}
